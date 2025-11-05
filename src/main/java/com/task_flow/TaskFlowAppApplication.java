@@ -1,4 +1,4 @@
-package com.task_flow.task_flow_app;
+package com.task_flow;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
