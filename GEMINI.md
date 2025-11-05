@@ -1,4 +1,3 @@
-# Instructions:
 # Enhanced Instructions: Gemini CLI Assistant
 
 ## I. COMMUNICATION AND BEHAVIOR
@@ -74,9 +73,4 @@ The focus is on iterative execution (Story by Story) with rigorous quality check
 What do you suggest for implementing profile-based permissions logic in the back-end?
 
 ## Answer:
-<<<<<<< HEAD
 To implement profile-based permissions logic in the back-end, I suggest an approach based on **Guards and Decorators** from NestJS integrated with your Prisma schema.
-```
-=======
-To implement profile-based permissions logic in the back-end, I suggest an approach based on **Guards and Decorators** from NestJS integrated with your Prisma schema.
->>>>>>> 0f13e55 (add Gemini CLI instructions)
