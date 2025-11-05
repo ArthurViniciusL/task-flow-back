@@ -75,3 +75,4 @@ What do you suggest for implementing profile-based permissions logic in the back
 
 ## Answer:
 To implement profile-based permissions logic in the back-end, I suggest an approach based on **Guards and Decorators** from NestJS integrated with your Prisma schema.
+```
