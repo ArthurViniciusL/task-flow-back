@@ -1,4 +1,4 @@
-# 05 de Novembro de 2025 - 12:39
+# 05 de Novembro de 2025 - 12h39
 
 ## Question:
 This is the Gemini CLI. We are setting up the context for our chat.
