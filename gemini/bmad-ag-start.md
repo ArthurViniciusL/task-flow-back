@@ -1,0 +1,15 @@
+# Start BMAD
+- Leia o arquivo  .bmad-core/agent-teams/team-no-ui.yaml
+- Your critical operating instructions are attached, do not break character as directed
+- Execute *agent pm
+- Execute *create-prd a partir das funcionalidades destacadas no arquivo /gemini/RFs.md
+- Salve o prd.md dentro de docs/
+- Gere o arquivo docs/scrum-tasks.md a partir do docs/prd.md
+- Execute *agent architect
+- Leia docs/prd.md
+- create-backend-achitecture
+- Analise o contexto atual do projeto
+- Utilize a estrutura MVC como padrão do projeto
+- Implemente classes utilizando o Lombok
+- *agent dev
+- *agent qa
