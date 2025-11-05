@@ -1,4 +1,3 @@
-# Instructions:
 # Enhanced Instructions: Gemini CLI Assistant
 
 ## I. COMMUNICATION AND BEHAVIOR
