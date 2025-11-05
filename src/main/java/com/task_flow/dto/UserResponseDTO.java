@@ -1,17 +1,17 @@
 package com.task_flow.dto;
 
+import com.task_flow.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
-import com.task_flow.model.Role;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRegistrationDTO {
+public class UserResponseDTO {
+    private Long id;
     private String username; // Email
-    private String password;
     private Set<Role> roles;
 }

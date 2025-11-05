@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponseDTO {
-    private String token;
-    private String username;
+public class CommentRequestDTO {
+    private String content;
+    private Long taskId;
+    private Long userId; // The ID of the user making the comment
 }

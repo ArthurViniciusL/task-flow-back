@@ -1,5 +1,49 @@
 package com.task_flow.controller;
 
+import com.task_flow.dto.ProjectRequestDTO;
+import com.task_flow.dto.ProjectResponseDTO;
+import com.task_flow.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/projects")
 public class ProjectController {
-    // ProjectController content will go here
+
+    @Autowired
+    private ProjectService projectService;
+
+    @PostMapping
+    public ResponseEntity<ProjectResponseDTO> createProject(@RequestBody ProjectRequestDTO projectRequestDTO) {
+        ProjectResponseDTO createdProject = projectService.createProject(projectRequestDTO);
+        return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProjectResponseDTO>> getAllProjects() {
+        List<ProjectResponseDTO> projects = projectService.getAllProjects();
+        return ResponseEntity.ok(projects);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProjectResponseDTO> getProjectById(@PathVariable Long id) {
+        ProjectResponseDTO project = projectService.getProjectById(id);
+        return ResponseEntity.ok(project);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProjectResponseDTO> updateProject(@PathVariable Long id, @RequestBody ProjectRequestDTO projectRequestDTO) {
+        ProjectResponseDTO updatedProject = projectService.updateProject(id, projectRequestDTO);
+        return ResponseEntity.ok(updatedProject);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        projectService.deleteProject(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
