@@ -3,6 +3,7 @@ package com.task_flow.service;
 import com.task_flow.model.User;
 import com.task_flow.repository.UserRepository;
 import com.task_flow.dto.UserResponseDTO;
+import com.task_flow.dto.UserRegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
