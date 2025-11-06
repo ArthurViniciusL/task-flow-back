@@ -23,6 +23,4 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // You can add more specific exception handlers here
-    // For example, for NotFoundException, BadRequestException, etc.
 }

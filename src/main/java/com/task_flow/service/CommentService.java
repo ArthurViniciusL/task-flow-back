@@ -2,35 +2,33 @@ package com.task_flow.service;
 
 import com.task_flow.dto.CommentRequestDTO;
 import com.task_flow.dto.CommentResponseDTO;
+import com.task_flow.exception.TaskNotFoundException;
+import com.task_flow.exception.UserNotFoundException;
 import com.task_flow.model.Comment;
 import com.task_flow.model.Task;
 import com.task_flow.model.User;
 import com.task_flow.repository.CommentRepository;
 import com.task_flow.repository.TaskRepository;
 import com.task_flow.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
 
-    @Autowired
-    private CommentRepository commentRepository;
-
-    @Autowired
-    private TaskRepository taskRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    private final CommentRepository commentRepository;
+    private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
 
     public CommentResponseDTO createComment(CommentRequestDTO commentRequestDTO) {
         Task task = taskRepository.findById(commentRequestDTO.taskId())
-                .orElseThrow(() -> new RuntimeException("Task not found with ID: " + commentRequestDTO.taskId()));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + commentRequestDTO.taskId()));
         User user = userRepository.findById(commentRequestDTO.userId())
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + commentRequestDTO.userId()));
+                .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + commentRequestDTO.userId()));
 
         Comment comment = new Comment();
         comment.setContent(commentRequestDTO.content());

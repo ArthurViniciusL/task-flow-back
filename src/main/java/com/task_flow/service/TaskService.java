@@ -2,16 +2,19 @@ package com.task_flow.service;
 
 import com.task_flow.dto.TaskRequestDTO;
 import com.task_flow.dto.TaskResponseDTO;
+import com.task_flow.exception.ProjectNotFoundException;
+import com.task_flow.exception.TaskNotFoundException;
+import com.task_flow.exception.UserNotFoundException;
+import com.task_flow.model.Project;
+import com.task_flow.model.Status;
 import com.task_flow.model.Task;
 import com.task_flow.model.User;
-import com.task_flow.model.Project;
+import com.task_flow.repository.ProjectRepository;
 import com.task_flow.repository.TaskRepository;
 import com.task_flow.repository.UserRepository;
-import com.task_flow.repository.ProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.task_flow.model.Status;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,16 +22,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TaskService {
 
-    @Autowired
-    private TaskRepository taskRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ProjectRepository projectRepository;
+    private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
+    private final ProjectRepository projectRepository;
 
     public TaskResponseDTO createTask(TaskRequestDTO taskRequestDTO) {
         Task task = new Task();
@@ -37,12 +36,12 @@ public class TaskService {
         task.setStatus(taskRequestDTO.status());
         task.setPriority(taskRequestDTO.priority());
         task.setDueDate(taskRequestDTO.dueDate());
-        User assignee = userRepository.findById(taskRequestDTO.assigneeId())
-                .orElseThrow(() -> new RuntimeException("Assignee not found"));
+
+        User assignee = findUserById(taskRequestDTO.assigneeId());
         task.setAssignee(assignee);
+
         if (taskRequestDTO.projectId() != null) {
-            Project project = projectRepository.findById(taskRequestDTO.projectId())
-                    .orElseThrow(() -> new RuntimeException("Project not found"));
+            Project project = findProjectById(taskRequestDTO.projectId());
             task.setProject(project);
         }
 
@@ -57,14 +56,12 @@ public class TaskService {
     }
 
     public TaskResponseDTO getTaskById(Long id) {
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+        Task task = findTaskById(id);
         return convertToDto(task);
     }
 
     public TaskResponseDTO updateTask(Long id, TaskRequestDTO taskRequestDTO) {
-        Task existingTask = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+        Task existingTask = findTaskById(id);
 
         existingTask.setTitle(taskRequestDTO.title());
         existingTask.setDescription(taskRequestDTO.description());
@@ -73,26 +70,20 @@ public class TaskService {
         existingTask.setDueDate(taskRequestDTO.dueDate());
 
         if (taskRequestDTO.assigneeId() != null) {
-            User assignee = userRepository.findById(taskRequestDTO.assigneeId())
-                    .orElseThrow(() -> new RuntimeException("Assignee not found"));
+            User assignee = findUserById(taskRequestDTO.assigneeId());
             existingTask.setAssignee(assignee);
         } else {
-            existingTask.setAssignee(null); // Allow unassigning
+            existingTask.setAssignee(null);
         }
 
         if (taskRequestDTO.projectId() != null) {
-            Project project = projectRepository.findById(taskRequestDTO.projectId())
-                    .orElseThrow(() -> new RuntimeException("Project not found"));
+            Project project = findProjectById(taskRequestDTO.projectId());
             existingTask.setProject(project);
         } else {
-            existingTask.setProject(null); // Allow disassociating from project
+            existingTask.setProject(null);
         }
 
-        // Set lastModifiedBy to the currently authenticated user
-        // This assumes the user is authenticated and their username is available in the SecurityContext
-        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        User currentUser = userRepository.findByUsername(currentUsername)
-                .orElseThrow(() -> new RuntimeException("Authenticated user not found"));
+        User currentUser = getCurrentAuthenticatedUser();
         existingTask.setLastModifiedBy(currentUser);
 
         Task updatedTask = taskRepository.save(existingTask);
@@ -112,18 +103,37 @@ public class TaskService {
     }
 
     public List<TaskResponseDTO> getTasksByAssignee(Long assigneeId) {
-        User assignee = userRepository.findById(assigneeId)
-                .orElseThrow(() -> new RuntimeException("Assignee not found with ID: " + assigneeId));
+        User assignee = findUserById(assigneeId);
         return taskRepository.findByAssignee(assignee).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
     public List<TaskResponseDTO> getTasksByProjectId(Long projectId) {
-        // No need to check for project existence here, as the repository method handles it
         return taskRepository.findByProjectId(projectId).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    private User findUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
+    }
+
+    private Project findProjectById(Long projectId) {
+        return projectRepository.findById(projectId)
+                .orElseThrow(() -> new ProjectNotFoundException("Project not found with ID: " + projectId));
+    }
+
+    private Task findTaskById(Long taskId) {
+        return taskRepository.findById(taskId)
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + taskId));
+    }
+
+    private User getCurrentAuthenticatedUser() {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new UserNotFoundException("Authenticated user not found"));
     }
 
     private TaskResponseDTO convertToDto(Task task) {

@@ -1,10 +1,11 @@
 package com.task_flow.service;
 
+import com.task_flow.dto.UserRegistrationDTO;
+import com.task_flow.dto.UserResponseDTO;
+import com.task_flow.exception.UserNotFoundException;
 import com.task_flow.model.User;
 import com.task_flow.repository.UserRepository;
-import com.task_flow.dto.UserResponseDTO;
-import com.task_flow.dto.UserRegistrationDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,13 +17,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -39,14 +38,12 @@ public class UserService implements UserDetailsService {
     }
 
     public UserResponseDTO getUserById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+        User user = findUserById(id);
         return convertToUserResponseDTO(user);
     }
 
     public UserResponseDTO updateUser(Long id, UserRegistrationDTO userDetails) {
-        User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+        User existingUser = findUserById(id);
 
         existingUser.setUsername(userDetails.username());
         // Password update should be handled separately or with more security checks
@@ -61,6 +58,11 @@ public class UserService implements UserDetailsService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    private User findUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
     }
 
     private UserResponseDTO convertToUserResponseDTO(User user) {
