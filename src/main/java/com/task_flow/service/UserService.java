@@ -65,7 +65,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
     }
 
-    private UserResponseDTO convertToUserResponseDTO(User user) {
+    public UserResponseDTO convertToUserResponseDTO(User user) {
         return new UserResponseDTO(user.getId(), user.getUsername(), user.getRoles());
     }
 }
