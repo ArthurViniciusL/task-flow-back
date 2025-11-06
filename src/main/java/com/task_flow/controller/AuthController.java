@@ -5,6 +5,7 @@ import com.task_flow.dto.LoginResponseDTO;
 import com.task_flow.dto.UserRegistrationDTO;
 import com.task_flow.service.AuthService;
 import com.task_flow.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,19 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;
     private final AuthService authService;
-
-    public AuthController(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JwtUtil jwtUtil, AuthService authService) {
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-        this.jwtUtil = jwtUtil;
-        this.authService = authService;
-    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO registrationDTO) {

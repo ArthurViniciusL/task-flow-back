@@ -3,7 +3,7 @@ package com.task_flow.controller;
 import com.task_flow.dto.CommentRequestDTO;
 import com.task_flow.dto.CommentResponseDTO;
 import com.task_flow.service.CommentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/comments")
+@RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
-
-    public CommentController(CommentService commentService) {
-        this.commentService = commentService;
-    }
 
     @PostMapping
     public ResponseEntity<CommentResponseDTO> createComment(@RequestBody CommentRequestDTO commentRequestDTO) {

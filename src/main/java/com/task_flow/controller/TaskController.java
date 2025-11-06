@@ -3,7 +3,7 @@ package com.task_flow.controller;
 import com.task_flow.dto.TaskRequestDTO;
 import com.task_flow.dto.TaskResponseDTO;
 import com.task_flow.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
+@RequiredArgsConstructor
 public class TaskController {
 
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
 
     @PostMapping
     public ResponseEntity<TaskResponseDTO> createTask(@RequestBody TaskRequestDTO taskRequestDTO) {

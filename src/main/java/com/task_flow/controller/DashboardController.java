@@ -2,7 +2,7 @@ package com.task_flow.controller;
 
 import com.task_flow.dto.DashboardResponseDTO;
 import com.task_flow.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/dashboard")
+@RequiredArgsConstructor
 public class DashboardController {
 
     private final TaskService taskService;
-
-    public DashboardController(TaskService taskService) {
-        this.taskService = taskService;
-    }
 
     @GetMapping
     public ResponseEntity<DashboardResponseDTO> getDashboardData() {

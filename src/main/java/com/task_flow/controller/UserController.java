@@ -3,7 +3,7 @@ package com.task_flow.controller;
 import com.task_flow.dto.UserRegistrationDTO;
 import com.task_flow.dto.UserResponseDTO;
 import com.task_flow.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,10 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')") // Only ADMIN can view all users
