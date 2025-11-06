@@ -41,7 +41,7 @@ public class NotificationService {
 
     public List<NotificationResponseDTO> getUnreadNotificationsForUser(Long userId) {
         User user = findUserById(userId);
-        return notificationRepository.findByUserAndReadFalseOrderByCreatedAtDesc(user).stream()
+        return notificationRepository.findByUserAndIsReadFalseOrderByCreatedAtDesc(user).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }

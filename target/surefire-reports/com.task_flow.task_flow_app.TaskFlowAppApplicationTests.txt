@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.task_flow.task_flow_app.TaskFlowAppApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.578 s -- in com.task_flow.task_flow_app.TaskFlowAppApplicationTests
