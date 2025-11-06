@@ -48,12 +48,12 @@ public class UserService implements UserDetailsService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
 
-        existingUser.setUsername(userDetails.getUsername());
+        existingUser.setUsername(userDetails.username());
         // Password update should be handled separately or with more security checks
-        if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
-            existingUser.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+        if (userDetails.password() != null && !userDetails.password().isEmpty()) {
+            existingUser.setPassword(passwordEncoder.encode(userDetails.password()));
         }
-        existingUser.setRoles(userDetails.getRoles());
+        existingUser.setRoles(userDetails.roles());
 
         User updatedUser = userRepository.save(existingUser);
         return convertToUserResponseDTO(updatedUser);

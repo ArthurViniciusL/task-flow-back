@@ -32,20 +32,16 @@ public class TaskService {
 
     public TaskResponseDTO createTask(TaskRequestDTO taskRequestDTO) {
         Task task = new Task();
-        task.setTitle(taskRequestDTO.getTitle());
-        task.setDescription(taskRequestDTO.getDescription());
-        task.setStatus(taskRequestDTO.getStatus());
-        task.setPriority(taskRequestDTO.getPriority());
-        task.setDueDate(taskRequestDTO.getDueDate());
-
-        if (taskRequestDTO.getAssigneeId() != null) {
-            User assignee = userRepository.findById(taskRequestDTO.getAssigneeId())
-                    .orElseThrow(() -> new RuntimeException("Assignee not found"));
-            task.setAssignee(assignee);
-        }
-
-        if (taskRequestDTO.getProjectId() != null) {
-            Project project = projectRepository.findById(taskRequestDTO.getProjectId())
+        task.setTitle(taskRequestDTO.title());
+        task.setDescription(taskRequestDTO.description());
+        task.setStatus(taskRequestDTO.status());
+        task.setPriority(taskRequestDTO.priority());
+        task.setDueDate(taskRequestDTO.dueDate());
+        User assignee = userRepository.findById(taskRequestDTO.assigneeId())
+                .orElseThrow(() -> new RuntimeException("Assignee not found"));
+        task.setAssignee(assignee);
+        if (taskRequestDTO.projectId() != null) {
+            Project project = projectRepository.findById(taskRequestDTO.projectId())
                     .orElseThrow(() -> new RuntimeException("Project not found"));
             task.setProject(project);
         }
@@ -70,22 +66,22 @@ public class TaskService {
         Task existingTask = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
 
-        existingTask.setTitle(taskRequestDTO.getTitle());
-        existingTask.setDescription(taskRequestDTO.getDescription());
-        existingTask.setStatus(taskRequestDTO.getStatus());
-        existingTask.setPriority(taskRequestDTO.getPriority());
-        existingTask.setDueDate(taskRequestDTO.getDueDate());
+        existingTask.setTitle(taskRequestDTO.title());
+        existingTask.setDescription(taskRequestDTO.description());
+        existingTask.setStatus(taskRequestDTO.status());
+        existingTask.setPriority(taskRequestDTO.priority());
+        existingTask.setDueDate(taskRequestDTO.dueDate());
 
-        if (taskRequestDTO.getAssigneeId() != null) {
-            User assignee = userRepository.findById(taskRequestDTO.getAssigneeId())
+        if (taskRequestDTO.assigneeId() != null) {
+            User assignee = userRepository.findById(taskRequestDTO.assigneeId())
                     .orElseThrow(() -> new RuntimeException("Assignee not found"));
             existingTask.setAssignee(assignee);
         } else {
             existingTask.setAssignee(null); // Allow unassigning
         }
 
-        if (taskRequestDTO.getProjectId() != null) {
-            Project project = projectRepository.findById(taskRequestDTO.getProjectId())
+        if (taskRequestDTO.projectId() != null) {
+            Project project = projectRepository.findById(taskRequestDTO.projectId())
                     .orElseThrow(() -> new RuntimeException("Project not found"));
             existingTask.setProject(project);
         } else {
@@ -131,22 +127,31 @@ public class TaskService {
     }
 
     private TaskResponseDTO convertToDto(Task task) {
-        TaskResponseDTO dto = new TaskResponseDTO();
-        dto.setId(task.getId());
-        dto.setTitle(task.getTitle());
-        dto.setDescription(task.getDescription());
-        dto.setStatus(task.getStatus());
-        dto.setPriority(task.getPriority());
-        dto.setDueDate(task.getDueDate());
-
+        Long assigneeId = null;
+        String assigneeUsername = null;
         if (task.getAssignee() != null) {
-            dto.setAssigneeId(task.getAssignee().getId());
-            dto.setAssigneeUsername(task.getAssignee().getUsername());
+            assigneeId = task.getAssignee().getId();
+            assigneeUsername = task.getAssignee().getUsername();
         }
+
+        Long projectId = null;
+        String projectName = null;
         if (task.getProject() != null) {
-            dto.setProjectId(task.getProject().getId());
-            dto.setProjectName(task.getProject().getName()); // Assuming Project has a 'name' field
+            projectId = task.getProject().getId();
+            projectName = task.getProject().getName();
         }
-        return dto;
+
+        return new TaskResponseDTO(
+                task.getId(),
+                task.getTitle(),
+                task.getDescription(),
+                task.getStatus(),
+                task.getPriority(),
+                task.getDueDate(),
+                assigneeId,
+                assigneeUsername,
+                projectId,
+                projectName
+        );
     }
 }

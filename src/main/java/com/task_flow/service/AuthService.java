@@ -17,14 +17,14 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
 
     public User registerUser(UserRegistrationDTO registrationDTO) {
-        if (userRepository.findByUsername(registrationDTO.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(registrationDTO.username()).isPresent()) {
             throw new RuntimeException("Username already exists!"); // Or a more specific exception
         }
 
         User newUser = new User();
-        newUser.setUsername(registrationDTO.getUsername());
-        newUser.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
-        newUser.setRoles(registrationDTO.getRoles()); // Set roles from DTO
+        newUser.setUsername(registrationDTO.username());
+        newUser.setPassword(passwordEncoder.encode(registrationDTO.password()));
+        newUser.setRoles(registrationDTO.roles()); // Set roles from DTO
 
         return userRepository.save(newUser);
     }

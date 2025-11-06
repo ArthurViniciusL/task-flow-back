@@ -27,13 +27,13 @@ public class CommentService {
     private UserRepository userRepository;
 
     public CommentResponseDTO createComment(CommentRequestDTO commentRequestDTO) {
-        Task task = taskRepository.findById(commentRequestDTO.getTaskId())
-                .orElseThrow(() -> new RuntimeException("Task not found with ID: " + commentRequestDTO.getTaskId()));
-        User user = userRepository.findById(commentRequestDTO.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + commentRequestDTO.getUserId()));
+        Task task = taskRepository.findById(commentRequestDTO.taskId())
+                .orElseThrow(() -> new RuntimeException("Task not found with ID: " + commentRequestDTO.taskId()));
+        User user = userRepository.findById(commentRequestDTO.userId())
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + commentRequestDTO.userId()));
 
         Comment comment = new Comment();
-        comment.setContent(commentRequestDTO.getContent());
+        comment.setContent(commentRequestDTO.content());
         comment.setTask(task);
         comment.setUser(user);
 
@@ -52,13 +52,13 @@ public class CommentService {
     }
 
     private CommentResponseDTO convertToDto(Comment comment) {
-        CommentResponseDTO dto = new CommentResponseDTO();
-        dto.setId(comment.getId());
-        dto.setContent(comment.getContent());
-        dto.setTaskId(comment.getTask().getId());
-        dto.setUserId(comment.getUser().getId());
-        dto.setUsername(comment.getUser().getUsername());
-        dto.setCreatedAt(comment.getCreatedAt());
-        return dto;
+        return new CommentResponseDTO(
+                comment.getId(),
+                comment.getContent(),
+                comment.getTask().getId(),
+                comment.getUser().getId(),
+                comment.getUser().getUsername(),
+                comment.getCreatedAt()
+        );
     }
 }

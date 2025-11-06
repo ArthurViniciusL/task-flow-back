@@ -62,13 +62,13 @@ public class NotificationService {
     }
 
     private NotificationResponseDTO convertToDto(Notification notification) {
-        NotificationResponseDTO dto = new NotificationResponseDTO();
-        dto.setId(notification.getId());
-        dto.setMessage(notification.getMessage());
-        dto.setRead(notification.isRead());
-        dto.setCreatedAt(notification.getCreatedAt());
-        dto.setUserId(notification.getUser().getId());
-        dto.setUsername(notification.getUser().getUsername());
-        return dto;
+        return new NotificationResponseDTO(
+                notification.getId(),
+                notification.getMessage(),
+                notification.isRead(),
+                notification.getCreatedAt(),
+                notification.getUser().getId(),
+                notification.getUser().getUsername()
+        );
     }
 }
