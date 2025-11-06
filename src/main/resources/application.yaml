@@ -22,3 +22,7 @@ springdoc:
   swagger-ui:
     path: /swagger
     enabled: true
+  info:
+    title: CRUD Task-Flow
+    description: API para gerenciamento de tarefas
+    version: 1.0.0
