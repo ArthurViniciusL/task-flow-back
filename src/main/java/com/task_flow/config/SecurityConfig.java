@@ -41,18 +41,19 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/swagger-ui/**", "/v3/api-docs/**");
-    }
-
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter) throws Exception {
         http
             .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless API
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Use stateless sessions for JWT
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**", "/error").permitAll() // Allow public access to auth endpoints and error pages
+                .requestMatchers(
+                    "/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/api/auth/**",
+                    "/error"
+                ).permitAll() // Allow public access to auth endpoints and error pages, and Swagger/OpenAPI endpoints
                 .anyRequest().authenticated() // All other requests require authentication
             );
             http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
