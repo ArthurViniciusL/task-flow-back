@@ -48,14 +48,19 @@ This package contains REST controllers that expose API endpoints for different f
 *   `UserController.java`: Provides endpoints for user management (e.g., retrieving user profiles).
 
 ### `com.task_flow.dto`
-This package holds Data Transfer Objects (DTOs) used for data exchange between the client and the server:
-*   `CommentRequestDTO.java`, `CommentResponseDTO.java`
-*   `DashboardResponseDTO.java`
-*   `LoginRequestDTO.java`, `LoginResponseDTO.java`
-*   `NotificationResponseDTO.java`
-*   `ProjectRequestDTO.java`, `ProjectResponseDTO.java`
-*   `TaskRequestDTO.java`, `TaskResponseDTO.java`
-*   `UserRegistrationDTO.java`, `UserResponseDTO.java`
+This package holds Data Transfer Objects (DTOs) used for data exchange between the client and the server. All DTOs are based on Java Records, ensuring immutability:
+*   `CommentRequestDTO.java` (Record)
+*   `CommentResponseDTO.java` (Record)
+*   `DashboardResponseDTO.java` (Record)
+*   `LoginRequestDTO.java` (Record)
+*   `LoginResponseDTO.java` (Record)
+*   `NotificationResponseDTO.java` (Record)
+*   `ProjectRequestDTO.java` (Record)
+*   `ProjectResponseDTO.java` (Record)
+*   `TaskRequestDTO.java` (Record)
+*   `TaskResponseDTO.java` (Record)
+*   `UserRegistrationDTO.java` (Record)
+*   `UserResponseDTO.java` (Record)
 
 ### `com.task_flow.exception`
 *   `GlobalExceptionHandler.java`: A centralized exception handler to provide consistent error responses across the application.
