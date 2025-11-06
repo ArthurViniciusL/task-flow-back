@@ -3,10 +3,8 @@ package com.task_flow.controller;
 import com.task_flow.dto.LoginRequestDTO;
 import com.task_flow.dto.LoginResponseDTO;
 import com.task_flow.dto.UserRegistrationDTO;
-import com.task_flow.model.User;
 import com.task_flow.service.AuthService;
 import com.task_flow.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,17 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
+    private final JwtUtil jwtUtil;
+    private final AuthService authService;
 
-    @Autowired
-    private UserDetailsService userDetailsService; // Using UserDetailsService directly for loading user details
-
-    @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
-    private AuthService authService;
+    public AuthController(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JwtUtil jwtUtil, AuthService authService) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.jwtUtil = jwtUtil;
+        this.authService = authService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO registrationDTO) {
