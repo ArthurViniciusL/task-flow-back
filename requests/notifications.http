@@ -1,0 +1,28 @@
+### Get All Notifications
+GET http://localhost:8080/api/notifications
+Accept: application/json
+
+### Get Notification by ID
+GET http://localhost:8080/api/notifications/1
+Accept: application/json
+
+### Create New Notification
+POST http://localhost:8080/api/notifications
+Content-Type: application/json
+
+{
+  "message": "New notification message.",
+  "userId": 1,
+  "read": false
+}
+
+### Update Notification by ID
+PUT http://localhost:8080/api/notifications/1
+Content-Type: application/json
+
+{
+  "read": true
+}
+
+### Delete Notification by ID
+DELETE http://localhost:8080/api/notifications/1

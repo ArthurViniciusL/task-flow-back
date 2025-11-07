@@ -1,0 +1,28 @@
+### Get All Comments
+GET http://localhost:8080/api/comments
+Accept: application/json
+
+### Get Comment by ID
+GET http://localhost:8080/api/comments/1
+Accept: application/json
+
+### Create New Comment
+POST http://localhost:8080/api/comments
+Content-Type: application/json
+
+{
+  "content": "This is a new comment.",
+  "taskId": 1,
+  "userId": 1
+}
+
+### Update Comment by ID
+PUT http://localhost:8080/api/comments/1
+Content-Type: application/json
+
+{
+  "content": "This is an updated comment."
+}
+
+### Delete Comment by ID
+DELETE http://localhost:8080/api/comments/1
