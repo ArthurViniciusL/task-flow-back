@@ -1,6 +1,6 @@
 package com.task_flow.annotation;
 
-import com.task_flow.dto.ErroResponse;
+import com.task_flow.dto.ErroResponseDTO;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,12 +25,12 @@ public final class ApiResponseDocumentation {
             @ApiResponse(
                     responseCode = "400",
                     description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             )
     })
     public @interface ApiResponseGet {
@@ -47,12 +47,12 @@ public final class ApiResponseDocumentation {
             @ApiResponse(
                     responseCode = "400",
                     description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             )
     })
     public @interface ApiResponseGetList {
@@ -69,17 +69,17 @@ public final class ApiResponseDocumentation {
             @ApiResponse(
                     responseCode = "400",
                     description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Recurso não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             )
     })
     public @interface ApiResponseGetById {
@@ -96,12 +96,12 @@ public final class ApiResponseDocumentation {
             @ApiResponse(
                     responseCode = "400",
                     description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             )
     })
     public @interface ApiResponsePost {
@@ -118,17 +118,17 @@ public final class ApiResponseDocumentation {
             @ApiResponse(
                     responseCode = "400",
                     description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Credenciais inválidas",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             )
     })
     public @interface ApiResponseLogin {
@@ -145,17 +145,17 @@ public final class ApiResponseDocumentation {
             @ApiResponse(
                     responseCode = "400",
                     description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "409",
                     description = "Usuário já existe",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             )
     })
     public @interface ApiResponseRegister {
@@ -172,17 +172,17 @@ public final class ApiResponseDocumentation {
             @ApiResponse(
                     responseCode = "400",
                     description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Recurso não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             )
     })
     public @interface ApiResponsePut {
@@ -199,12 +199,12 @@ public final class ApiResponseDocumentation {
             @ApiResponse(
                     responseCode = "404",
                     description = "Recurso não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponseDTO.class))
             )
     })
     public @interface ApiResponseDelete {

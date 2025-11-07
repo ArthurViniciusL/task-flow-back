@@ -2,7 +2,7 @@ package com.task_flow.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public record ErroResponse(
+public record ErroResponseDTO (
     @Schema(description = "Timestamp of the error", example = "2025-11-06T10:30:00.000+00:00")
     String timestamp,
 
