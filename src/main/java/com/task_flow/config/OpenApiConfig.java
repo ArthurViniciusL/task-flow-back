@@ -17,16 +17,19 @@ import org.springframework.context.annotation.Configuration;
                 title = "Task Flow API",
                 version = "1.0.0",
                 description = "API REST para gerenciamento de tarefas, projetos e equipes",
+
                 contact = @Contact(
                         name = "Task Flow Team",
                         email = "contato@taskflow.com",
                         url = "https://github.com/ArthurViniciusL/task-flow-back"
                 ),
+
                 license = @License(
                         name = "MIT License",
                         url = "https://opensource.org/licenses/MIT"
                 )
         ),
+
         servers = {
                 @Server(
                         url = "http://localhost:8080",
@@ -37,17 +40,20 @@ import org.springframework.context.annotation.Configuration;
                         description = "Ambiente de Produção"
                 )
         },
+
         security = {
                 @SecurityRequirement(name = "bearerAuth")
         }
 )
 @SecurityScheme(
         name = "bearerAuth",
-        description = "Autenticação JWT - Insira o token JWT no formato: Bearer {token}",
+        description = "Autenticação JWT - Insira o token no formato: Bearer {token}",
         scheme = "bearer",
         type = SecuritySchemeType.HTTP,
         bearerFormat = "JWT",
         in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {
+
+
 }
