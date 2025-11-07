@@ -1,4 +1,5 @@
 # task-flow-back
 Repositorio dedicado ao back-end do app task flow
 
-[![Contributors](https://contrib.rocks/image?repo=ArthurViniciusL/task-flow-back)](https://github.com/ArthurViniciusL/task-flow-back/graphs/contributors)
+# Contribuidores:
+[![Contributors](https://contrib.rocks/image?repo=arthurviniciusl/task-flow-back)](https://github.com/arthurviniciusl/task-flow-back/graphs/contributors)

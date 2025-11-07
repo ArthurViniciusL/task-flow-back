@@ -20,6 +20,7 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
 
+    //Metodo que cria uma notificacao
     public NotificationResponseDTO createNotification(Long userId, String message) {
         User user = findUserById(userId);
 
@@ -32,6 +33,7 @@ public class NotificationService {
         return convertToDto(savedNotification);
     }
 
+    //Metodo que lista todas as notificacoes de um usuario
     public List<NotificationResponseDTO> getNotificationsForUser(Long userId) {
         User user = findUserById(userId);
         return notificationRepository.findByUserOrderByCreatedAtDesc(user).stream()
@@ -39,6 +41,7 @@ public class NotificationService {
                 .collect(Collectors.toList());
     }
 
+    //Metodo que lista todas as notificacoes nao lidas de um usuario
     public List<NotificationResponseDTO> getUnreadNotificationsForUser(Long userId) {
         User user = findUserById(userId);
         return notificationRepository.findByUserAndIsReadFalseOrderByCreatedAtDesc(user).stream()
@@ -46,6 +49,7 @@ public class NotificationService {
                 .collect(Collectors.toList());
     }
 
+    //Metodo que marca uma notificacao como lida
     public NotificationResponseDTO markNotificationAsRead(Long notificationId) {
         Notification notification = findNotificationById(notificationId);
         notification.setRead(true);
@@ -53,20 +57,24 @@ public class NotificationService {
         return convertToDto(updatedNotification);
     }
 
+    //Metodo que deleta uma notificacao
     public void deleteNotification(Long notificationId) {
         notificationRepository.deleteById(notificationId);
     }
 
+    //Metodo que lista um usário pelo ID
     private User findUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
     }
 
+    //Metodo que lista uma notificacao pelo ID
     private Notification findNotificationById(Long notificationId) {
         return notificationRepository.findById(notificationId)
                 .orElseThrow(() -> new NotificationNotFoundException("Notification not found with ID: " + notificationId));
     }
 
+    //Metodo que converte uma notificacao em DTO
     private NotificationResponseDTO convertToDto(Notification notification) {
         return new NotificationResponseDTO(
                 notification.getId(),

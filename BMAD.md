@@ -1,0 +1,19 @@
+# Instruções:
+- Analise o conteudo da pasta `docs/`
+- - Se os arquivos os arquivo `docs/architecture.md` `docs/prd.md` existirem, então:
+    - Execute o comando *agent sm read docs/prd.md and docs/architecture.md
+    - Salve o arquivo em docs/epic.md
+    - Cada história contém: objetivo, contexto, padrões, critérios de aceitação.
+    - Espere a confirmação para validar se tudo foi construido.
+- Se não existirem os arquivo `docs/architecture.md` `docs/prd.md`, então:
+    - Leia o arquivo `/web-bundles/agents/bmad-orchestrator.txt`
+    - Confirme que as intruções do bmad foram adicionadas
+    - Leia o arquivo `/web-bundles/teams/team-no-ui.txt`
+    - Execute o comando *agent analyst
+    - Leia os requisitos funcionais presentes em: `/gemini-files/RFs.md`
+    - Execute o comando *agent pm
+    - Salve o arquivo em docs/
+    - Execute o comando *agent architect read docs/prd.md
+    - Salve o arquivo em docs/architecture.md
+    - Execute o comando *agent po read docs/prd.md and docs/architecture.md
+    - Espere a confirmação para validar se tudo foi construido.
