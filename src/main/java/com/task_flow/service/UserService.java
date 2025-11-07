@@ -23,6 +23,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    //Metodo que cria um novo registro de usuário
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
@@ -31,17 +32,20 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 
+    //Metodo que lista todos os usuarios
     public List<UserResponseDTO> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(this::convertToUserResponseDTO)
                 .collect(Collectors.toList());
     }
 
+    //Metodo que lista um usuario pelo ID
     public UserResponseDTO getUserById(Long id) {
         User user = findUserById(id);
         return convertToUserResponseDTO(user);
     }
 
+    //Metodo que atualiza um usuario
     public UserResponseDTO updateUser(Long id, UserRegistrationDTO userDetails) {
         User existingUser = findUserById(id);
 
@@ -56,15 +60,18 @@ public class UserService implements UserDetailsService {
         return convertToUserResponseDTO(updatedUser);
     }
 
+    //Metodo que deleta um usuario
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
+    //Metodo que lista um usuario pelo ID
     private User findUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
     }
 
+    //Metodo que converte um usuario em DTO
     public UserResponseDTO convertToUserResponseDTO(User user) {
         return new UserResponseDTO(user.getId(), user.getUsername(), user.getRoles());
     }
