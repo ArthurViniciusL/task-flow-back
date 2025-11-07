@@ -15,6 +15,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    // Cria um novo registro de usuário
     public User registerUser(UserRegistrationDTO registrationDTO) {
         if (userRepository.findByUsername(registrationDTO.username()).isPresent()) {
             throw new UsernameAlreadyExistsException("Username already exists!");
