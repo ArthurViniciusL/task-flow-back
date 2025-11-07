@@ -29,6 +29,7 @@ public class TaskService {
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
 
+    //Metodo que cria uma tarefa
     public TaskResponseDTO createTask(TaskRequestDTO taskRequestDTO) {
         Task task = new Task();
         task.setTitle(taskRequestDTO.title());
@@ -49,17 +50,20 @@ public class TaskService {
         return convertToDto(savedTask);
     }
 
+    //Metodo que lista todas as tarefas
     public List<TaskResponseDTO> getAllTasks() {
         return taskRepository.findAll().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
+    //Metodo que lista uma tarefa pelo ID
     public TaskResponseDTO getTaskById(Long id) {
         Task task = findTaskById(id);
         return convertToDto(task);
     }
 
+    //Metodo que atualiza uma tarefa
     public TaskResponseDTO updateTask(Long id, TaskRequestDTO taskRequestDTO) {
         Task existingTask = findTaskById(id);
 
@@ -90,10 +94,12 @@ public class TaskService {
         return convertToDto(updatedTask);
     }
 
+    //Metodo que deleta uma tarefa
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
 
+    //Metodo que lista a quantidade de tarefas por status
     public Map<Status, Long> getTaskCountByStatus() {
         Map<Status, Long> taskCounts = new HashMap<>();
         for (Status status : Status.values()) {
@@ -102,6 +108,7 @@ public class TaskService {
         return taskCounts;
     }
 
+    //Metodo que lista as tarefas de um usuario
     public List<TaskResponseDTO> getTasksByAssignee(Long assigneeId) {
         User assignee = findUserById(assigneeId);
         return taskRepository.findByAssignee(assignee).stream()
@@ -109,33 +116,39 @@ public class TaskService {
                 .collect(Collectors.toList());
     }
 
+    //Metodo que lista as tarefas de um projeto
     public List<TaskResponseDTO> getTasksByProjectId(Long projectId) {
         return taskRepository.findByProjectId(projectId).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
+    //Metodo que lista um usuario pelo ID
     private User findUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
     }
 
+    //Metodo que lista um projeto pelo ID
     private Project findProjectById(Long projectId) {
         return projectRepository.findById(projectId)
                 .orElseThrow(() -> new ProjectNotFoundException("Project not found with ID: " + projectId));
     }
 
+    //Metodo que lista uma tarefa pelo ID
     private Task findTaskById(Long taskId) {
         return taskRepository.findById(taskId)
                 .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + taskId));
     }
 
+    //Metodo que lista o usuario autenticado
     private User getCurrentAuthenticatedUser() {
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new UserNotFoundException("Authenticated user not found"));
     }
 
+    //Metodo que converte uma tarefa em DTO
     private TaskResponseDTO convertToDto(Task task) {
         Long assigneeId = null;
         String assigneeUsername = null;
