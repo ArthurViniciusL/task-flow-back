@@ -25,6 +25,7 @@ public class ProjectService {
     private final UserRepository userRepository;
     private final UserService userService; // To convert User to UserResponseDTO
 
+    //Metodo que cria um projeto
     public ProjectResponseDTO createProject(ProjectRequestDTO requestDTO) {
         Project project = new Project();
         project.setName(requestDTO.name());
@@ -41,17 +42,20 @@ public class ProjectService {
         return convertToProjectResponseDTO(savedProject);
     }
 
+    //Metodo que lista todos os projetos
     public List<ProjectResponseDTO> getAllProjects() {
         return projectRepository.findAll().stream()
                 .map(this::convertToProjectResponseDTO)
                 .collect(Collectors.toList());
     }
 
+    //Metodo que lista um projeto pelo ID
     public ProjectResponseDTO getProjectById(Long id) {
         Project project = findProjectById(id);
         return convertToProjectResponseDTO(project);
     }
 
+    //Metodo que atualiza um projeto
     public ProjectResponseDTO updateProject(Long id, ProjectRequestDTO requestDTO) {
         Project existingProject = findProjectById(id);
 
@@ -71,6 +75,7 @@ public class ProjectService {
         return convertToProjectResponseDTO(updatedProject);
     }
 
+    //Metodo que deleta um projeto
     public void deleteProject(Long id) {
         if (!projectRepository.existsById(id)) {
             throw new ProjectNotFoundException("Project not found with ID: " + id);
@@ -78,23 +83,26 @@ public class ProjectService {
         projectRepository.deleteById(id);
     }
 
+    //Metodo que lista um projeto pelo ID
     private Project findProjectById(Long projectId) {
         return projectRepository.findById(projectId)
                 .orElseThrow(() -> new ProjectNotFoundException("Project not found with ID: " + projectId));
     }
 
+    //Metodo que lista um usuario pelo ID
     private User findUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
     }
 
+    //Metodo que converte um projeto em DTO
     private ProjectResponseDTO convertToProjectResponseDTO(Project project) {
         Set<UserResponseDTO> teamResponseDTOs = project.getTeam().stream()
                 .map(userService::convertToUserResponseDTO)
                 .collect(Collectors.toSet());
 
-        // Placeholder for progress calculation, as it's not defined in the current context
-        double progressPercentage = 0.0; // You might implement actual progress calculation here
+
+        double progressPercentage = 0.0;
 
         return new ProjectResponseDTO(
                 project.getId(),
