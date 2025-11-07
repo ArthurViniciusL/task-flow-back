@@ -1,4 +1,5 @@
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/TaskFlowAppApplication.java
+/home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/annotation/ApiResponseDocumentation.java
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/config/JwtRequestFilter.java
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/config/SecurityConfig.java
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/controller/AuthController.java
@@ -11,6 +12,7 @@
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/dto/CommentRequestDTO.java
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/dto/CommentResponseDTO.java
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/dto/DashboardResponseDTO.java
+/home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/dto/ErroResponseDTO.java
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/dto/LoginRequestDTO.java
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/dto/LoginResponseDTO.java
 /home/arthur/Coding/AccGenAi/Projetos/task-flow-back/src/main/java/com/task_flow/dto/NotificationResponseDTO.java
