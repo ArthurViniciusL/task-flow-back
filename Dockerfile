@@ -1,5 +1,5 @@
-# Use a imagem base oficial do OpenJDK 21
-FROM openjdk:21-slim
+# Use Eclipse Temurin ao invés de OpenJDK (que foi descontinuado)
+FROM eclipse-temurin:21-jdk-alpine
 
 # Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
