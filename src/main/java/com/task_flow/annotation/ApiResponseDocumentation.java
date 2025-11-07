@@ -14,30 +14,75 @@ import java.lang.annotation.Target;
 
 public final class ApiResponseDocumentation {
 
+
+
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Lista de recursos retornada com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            )
     })
-    public @interface ApiResponseGet {
+    public @interface ApiResponseGetList {
     }
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso encontrado com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Recurso não encontrado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            )
+    })
+    public @interface ApiResponseGetById {
+    }
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Recurso criado com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            )
     })
     public @interface ApiResponsePost {
     }
@@ -46,26 +91,103 @@ public final class ApiResponseDocumentation {
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Recurso atualizado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Autenticação realizada com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Credenciais inválidas",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            )
     })
-    public @interface ApiResponsePut {
+    public @interface ApiResponseLogin {
     }
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Recurso excluído com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Usuário registrado com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Usuário já existe",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            )
+    })
+    public @interface ApiResponseRegister {
+    }
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso atualizado com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Recurso não encontrado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            )
+    })
+    public @interface ApiResponsePut {
+    }
+
+
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Recurso excluído com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Recurso não encontrado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            )
     })
     public @interface ApiResponseDelete {
     }
