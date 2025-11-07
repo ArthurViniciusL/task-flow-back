@@ -14,7 +14,27 @@ import java.lang.annotation.Target;
 
 public final class ApiResponseDocumentation {
 
-
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Operação realizada com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class))
+            )
+    })
+    public @interface ApiResponseGet {
+    }
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
@@ -167,8 +187,6 @@ public final class ApiResponseDocumentation {
     })
     public @interface ApiResponsePut {
     }
-
-
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

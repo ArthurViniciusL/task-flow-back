@@ -3,6 +3,7 @@ package com.task_flow.controller;
 import com.task_flow.dto.UserRegistrationDTO;
 import com.task_flow.dto.UserResponseDTO;
 import com.task_flow.service.UserService;
+import com.task_flow.annotation.ApiResponseDocumentation.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @ApiResponseGetList
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')") // Only ADMIN can view all users
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
@@ -25,6 +27,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @ApiResponseGetById
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id") // ADMIN or the user themselves
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
@@ -32,6 +35,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @ApiResponsePut
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')") // Only ADMIN can update users
     public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long id, @RequestBody UserRegistrationDTO userDetails) {
@@ -39,6 +43,7 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @ApiResponseDelete
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')") // Only ADMIN can delete users
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {

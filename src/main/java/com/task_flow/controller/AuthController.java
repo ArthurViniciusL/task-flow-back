@@ -5,7 +5,7 @@ import com.task_flow.dto.LoginResponseDTO;
 import com.task_flow.dto.UserRegistrationDTO;
 import com.task_flow.service.AuthService;
 import com.task_flow.util.JwtUtil;
-import com.task_flow.annotation.ApiResponseDocumentation;
+import com.task_flow.annotation.ApiResponseDocumentation.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,12 +24,14 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final AuthService authService;
 
+    @ApiResponseRegister
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO registrationDTO) {
         authService.registerUser(registrationDTO);
         return ResponseEntity.ok("User registered successfully!");
     }
 
+    @ApiResponseLogin
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> loginUser(@RequestBody LoginRequestDTO loginRequest) {
         authenticationManager.authenticate(
