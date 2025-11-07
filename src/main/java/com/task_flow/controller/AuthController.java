@@ -6,6 +6,8 @@ import com.task_flow.dto.UserRegistrationDTO;
 import com.task_flow.service.AuthService;
 import com.task_flow.util.JwtUtil;
 import com.task_flow.annotation.ApiResponseDocumentation.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Tag(name = "Autenticação", description = "Endpoints de autenticação e registro de usuários")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -24,6 +27,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final AuthService authService;
 
+    @Operation(summary = "Registrar novo usuário", description = "Cria uma nova conta de usuário no sistema")
     @ApiResponseRegister
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO registrationDTO) {
@@ -31,6 +35,7 @@ public class AuthController {
         return ResponseEntity.ok("User registered successfully!");
     }
 
+    @Operation(summary = "Fazer login", description = "Autentica um usuário e retorna o token JWT")
     @ApiResponseLogin
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> loginUser(@RequestBody LoginRequestDTO loginRequest) {
