@@ -1,0 +1,15 @@
+# Start BMAD
+- Read the file .bmad-core/agent-teams/team-no-ui.yaml
+- Your critical operating instructions are attached, do not break characters as directed
+- Execute *agent pm
+- Execute *create-prd based on the functionalities highlighted in the file /gemini/RFs.md
+- Save prd.md in docs/
+- Generate the file docs/scrum-tasks.md from docs/prd.md
+- Execute *agent architect
+- Read docs/prd.md
+- create-backend-architecture
+- Analyze the current project context
+- Use the MVC structure as the project standard
+- Implement classes using Lombok
+- *agent dev
+- *agent qa

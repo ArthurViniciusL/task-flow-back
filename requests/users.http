@@ -1,0 +1,29 @@
+### Get All Users
+GET http://localhost:8080/api/users
+Accept: application/json
+
+### Get User by ID
+GET http://localhost:8080/api/users/1
+Accept: application/json
+
+### Create New User
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "username": "newuser",
+  "email": "newuser@example.com",
+  "password": "password123",
+  "roleId": 1
+}
+
+### Update User by ID
+PUT http://localhost:8080/api/users/1
+Content-Type: application/json
+
+{
+  "email": "updated_email@example.com"
+}
+
+### Delete User by ID
+DELETE http://localhost:8080/api/users/1

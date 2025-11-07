@@ -1,3 +1,28 @@
+jwt:
+  secret: your_jwt_secret_key_here_replace_with_a_strong_one_at_least_256_bit
+  expiration: 3600000 # 1 hour in milliseconds
+
 spring:
-  application:
-    name: task-flow-app
+  datasource:
+    url: ${MYSQL_PUBLIC_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger
+    enabled: true
+  info:
+    title: CRUD Task-Flow
+    description: API para gerenciamento de tarefas
+    version: 1.0.0
