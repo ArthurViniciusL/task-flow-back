@@ -24,6 +24,7 @@ public class CommentService {
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
 
+    //Metodo que cria um comentario
     public CommentResponseDTO createComment(CommentRequestDTO commentRequestDTO) {
         Task task = taskRepository.findById(commentRequestDTO.taskId())
                 .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + commentRequestDTO.taskId()));
@@ -39,16 +40,19 @@ public class CommentService {
         return convertToDto(savedComment);
     }
 
+    //Metodo que lista todos os comentarios
     public List<CommentResponseDTO> getCommentsByTaskId(Long taskId) {
         return commentRepository.findByTaskId(taskId).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
+    //Metodo que deleta um comentario
     public void deleteComment(Long id) {
         commentRepository.deleteById(id);
     }
 
+    //Metodo que converte um comentario em DTO
     private CommentResponseDTO convertToDto(Comment comment) {
         return new CommentResponseDTO(
                 comment.getId(),
