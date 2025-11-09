@@ -48,12 +48,8 @@ Documentação automática disponível via **Swagger UI**, permitindo:
 ##  Funcionalidades Principais
 
 - Registro, login e recuperação de senha  
-- CRUD de tarefas e projetos  
-- Visualização em lista e kanban  
-- Busca e filtros avançados  
-- Atribuição de responsáveis  
-- Comentários e notificações  
-- Histórico de alterações  
+- CRUD completo. 
+- Atribuição de responsáveis   
 - Dashboard com métricas  
 - Gerenciamento de usuários e permissões  
 
@@ -62,7 +58,7 @@ Documentação automática disponível via **Swagger UI**, permitindo:
 ##  Stack Tecnológica
 
 - **Back-end:** Java + Spring Boot  
-- **Front-end:** *Definir tecnologia (React, Angular, etc.)*  
+- **Front-end:** React
 - **Banco:** **MySQL (via Docker)**  
 - **Autenticação:** JWT  
 - **ORM:** Spring Data JPA / Hibernate  
